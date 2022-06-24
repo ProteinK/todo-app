@@ -2,3 +2,24 @@ p {
   margin: 0;
   padding: 0;
 }
+
+#item-form.hidden {
+  display: none;
+}
+
+#item-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 10px;
+}
+
+.form-item {
+  display: flex;
+  gap: 5px;
+}
+
+input:invalid {
+  border: 2px solid red;
+}
