@@ -1,4 +1,4 @@
-export default function Project() {
+export default function Project(name) {
   let items = [];
 
   const proto = {
@@ -11,5 +11,5 @@ export default function Project() {
     }
   };
 
-  return Object.assign(Object.create(proto));
+  return Object.assign(Object.create(proto), { name });
 }

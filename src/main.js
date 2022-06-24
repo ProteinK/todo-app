@@ -1,12 +1,7 @@
-import TodoItem from "./TodoItem";
-import Project from './Project';
-import { ProjectView, ItemView } from "./views";
+import { ProjectView } from "./views";
+import ProjectManager from "./ProjectManager";
 
-let project = Project();
-let item = TodoItem("something");
+ProjectManager.initialize();
 
-project.addItem(item);
-project.addItem(TodoItem('idk', 'stuff'));
-
-ProjectView.display(project);
+ProjectView.display(ProjectManager.getProject("Default"));
 

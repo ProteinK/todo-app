@@ -16,7 +16,17 @@
   \************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Project)\n/* harmony export */ });\nfunction Project() {\n  let items = [];\n\n  const proto = {\n    addItem(item) {\n      items.push(item);\n    },\n\n    getItems() {\n      return items;\n    }\n  };\n\n  return Object.assign(Object.create(proto));\n}\n\n\n//# sourceURL=webpack://odin-todo/./src/Project.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Project)\n/* harmony export */ });\nfunction Project(name) {\n  let items = [];\n\n  const proto = {\n    addItem(item) {\n      items.push(item);\n    },\n\n    getItems() {\n      return items;\n    }\n  };\n\n  return Object.assign(Object.create(proto), { name });\n}\n\n\n//# sourceURL=webpack://odin-todo/./src/Project.js?");
+
+/***/ }),
+
+/***/ "./src/ProjectManager.js":
+/*!*******************************!*\
+  !*** ./src/ProjectManager.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _Project__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Project */ \"./src/Project.js\");\n\n\nconst ProjectManager = (function () {\n  let projects = [];\n\n  function initialize() {\n    let project = (0,_Project__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(\"Default\");\n    addProject(project);\n  }\n\n  function addProject(project) {\n    projects.push(project);\n  }\n\n  function getProject(name) {\n    return projects.find(p => p.name === name);\n  }\n\n  return Object.assign({}, { initialize, addProject, getProject });\n})();\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProjectManager);\n\n\n//# sourceURL=webpack://odin-todo/./src/ProjectManager.js?");
 
 /***/ }),
 
@@ -30,13 +40,23 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./src/controllers.js":
+/*!****************************!*\
+  !*** ./src/controllers.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"ProjectController\": () => (/* binding */ ProjectController)\n/* harmony export */ });\n/* harmony import */ var _TodoItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TodoItem */ \"./src/TodoItem.js\");\n/* harmony import */ var _ProjectManager__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProjectManager */ \"./src/ProjectManager.js\");\n/* harmony import */ var _views__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views */ \"./src/views.js\");\n\n\n\n\nconst ProjectController = (function () {\n\n  function showItemForm() {\n    document.querySelector('#item-form').classList.toggle('hidden');\n  }\n\n  function addItem() {\n    let title = document.querySelector('#title').value;\n    let desc = document.querySelector('#desc').value;\n    let date = document.querySelector('#date').value;\n    let priority = document.querySelector('#priority').value;\n\n    let item = (0,_TodoItem__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(title, desc, date, priority);\n    let project = _ProjectManager__WEBPACK_IMPORTED_MODULE_1__[\"default\"].getProject(\"Default\");\n    project.addItem(item);\n    _views__WEBPACK_IMPORTED_MODULE_2__.ProjectView.display(project);\n  }\n\n  return Object.assign({}, { showItemForm, addItem });\n})();\n\n\n\n\n//# sourceURL=webpack://odin-todo/./src/controllers.js?");
+
+/***/ }),
+
 /***/ "./src/main.js":
 /*!*********************!*\
   !*** ./src/main.js ***!
   \*********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _TodoItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TodoItem */ \"./src/TodoItem.js\");\n/* harmony import */ var _Project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Project */ \"./src/Project.js\");\n/* harmony import */ var _views__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views */ \"./src/views.js\");\n\n\n\n\nlet project = (0,_Project__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\nlet item = (0,_TodoItem__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(\"something\");\n\nproject.addItem(item);\nproject.addItem((0,_TodoItem__WEBPACK_IMPORTED_MODULE_0__[\"default\"])('idk', 'stuff'));\n\n_views__WEBPACK_IMPORTED_MODULE_2__.ProjectView.display(project);\n\n\n\n//# sourceURL=webpack://odin-todo/./src/main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _views__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./views */ \"./src/views.js\");\n/* harmony import */ var _ProjectManager__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProjectManager */ \"./src/ProjectManager.js\");\n\n\n\n_ProjectManager__WEBPACK_IMPORTED_MODULE_1__[\"default\"].initialize();\n\n_views__WEBPACK_IMPORTED_MODULE_0__.ProjectView.display(_ProjectManager__WEBPACK_IMPORTED_MODULE_1__[\"default\"].getProject(\"Default\"));\n\n\n\n//# sourceURL=webpack://odin-todo/./src/main.js?");
 
 /***/ }),
 
@@ -46,7 +66,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Tod
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"ItemView\": () => (/* binding */ ItemView),\n/* harmony export */   \"ProjectView\": () => (/* binding */ ProjectView)\n/* harmony export */ });\nconst ProjectView = (function () {\n  function display(project) {\n    let items = project.getItems();\n    for (const item of items) {\n      ItemView.display(item);\n    }\n  }\n\n  return Object.assign({}, { display });\n})();\n\nconst ItemView = (function () {\n  function display(item) {\n    let test = document.createElement('p');\n    test.textContent = 'test ' + item.title;\n    document.querySelector('div').appendChild(test);\n  }\n\n  return Object.assign({}, { display });\n})();\n\n\n\n\n//# sourceURL=webpack://odin-todo/./src/views.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"ItemView\": () => (/* binding */ ItemView),\n/* harmony export */   \"ProjectView\": () => (/* binding */ ProjectView)\n/* harmony export */ });\n/* harmony import */ var _controllers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./controllers */ \"./src/controllers.js\");\n\n\nconst ProjectView = (function () {\n  function display(project) {\n    let main = document.querySelector('#main-project');\n    main.innerHTML = '';\n    let items = project.getItems();\n    for (const item of items) {\n      ItemView.display(item);\n    }\n\n    const btn = document.createElement('button');\n    btn.textContent = 'Add new item';\n    btn.addEventListener('click', _controllers__WEBPACK_IMPORTED_MODULE_0__.ProjectController.showItemForm);\n\n    main.appendChild(btn);\n  }\n\n  const addItemBtn = document.querySelector('#add-item');\n  addItemBtn.addEventListener('click', _controllers__WEBPACK_IMPORTED_MODULE_0__.ProjectController.addItem);\n\n  return Object.assign({}, { display });\n})();\n\nconst ItemView = (function () {\n  function display(item) {\n    let test = document.createElement('p');\n    test.textContent = item.title;\n    document.querySelector('#main-project').appendChild(test);\n  }\n\n  return Object.assign({}, { display });\n})();\n\n\n\n\n//# sourceURL=webpack://odin-todo/./src/views.js?");
 
 /***/ })
 
