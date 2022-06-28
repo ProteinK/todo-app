@@ -3,6 +3,12 @@ p {
   padding: 0;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 #item-form.hidden {
   display: none;
 }
@@ -13,6 +19,7 @@ p {
   justify-content: center;
   align-items: center;
   row-gap: 10px;
+  font-size: 1.3rem;
 }
 
 .form-item {
@@ -22,4 +29,42 @@ p {
 
 input:invalid {
   border: 2px solid red;
+}
+
+input {
+  font-size: inherit;
+}
+
+.todo-item {
+  font-size: 1.3rem;
+  padding: 10px;
+}
+
+button {
+  border-radius: 10px;
+  font-size: 1.4rem;
+  color: white;
+  background: rgb(73, 162, 192);
+  padding: 5px 15px;
+}
+
+button#add-new-item {
+  width: 250px;
+}
+
+#projects {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project {
+  border: 1px solid red;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
 }
