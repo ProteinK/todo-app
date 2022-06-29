@@ -8,6 +8,14 @@ export default function Project(name) {
 
     getItems() {
       return items;
+    },
+
+    getItem(index) {
+      return items[index];
+    },
+
+    removeItem(index) {
+      items.splice(index, 1);
     }
   };
 

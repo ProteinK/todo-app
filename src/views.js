@@ -3,13 +3,21 @@ import { ProjectController } from "./controllers";
 const ProjectView = (function () {
   function display(project) {
     let main = document.querySelector('#projects');
-    main.innerHTML = '';
+
+    // clear out the project view first
+    let temp = main.querySelector(`.project[data-project=${project.name}]`);
+    if (temp) {
+      main.removeChild(temp);
+    }
+
     let projectView = document.createElement('div');
     projectView.classList.add('project');
+    projectView.setAttribute('data-project', project.name);
 
     let items = project.getItems();
-    for (const item of items) {
-      ItemView.display(item, projectView);
+    for (let i = 0; i < items.length; i++) {
+      let item = project.getItem(i);
+      ItemView.display(item, i, project.name, projectView);
     }
 
     main.appendChild(projectView);
@@ -40,6 +48,14 @@ const ItemView = (function () {
     ul.appendChild(date);
 
     div.appendChild(ul);
+
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = 'Remove';
+    removeBtn.addEventListener('click', () => {
+      ProjectController.removeItem(element);
+    });
+    div.appendChild(removeBtn);
+
     element.appendChild(div);
   }
 
@@ -48,17 +64,21 @@ const ItemView = (function () {
     element.removeChild(div);
   }
 
-  function display(item, projectView) {
-    let view = document.createElement('p');
-    view.textContent = item.title;
+  function display(item, index, projectName, projectView) {
+    let view = document.createElement('div');
+    view.setAttribute('data-index', index);
+    view.setAttribute('data-project', projectName);
+    let p = document.createElement('p');
+    p.textContent = item.title;
     view.classList.add('todo-item');
-    view.addEventListener('click', e => {
-      if (e.target.querySelector('.expanded-item')) {
-        collapseItem(e.target);
+    p.addEventListener('click', e => {
+      if (view.querySelector('.expanded-item')) {
+        collapseItem(view);
       } else {
-        expandItem(item, e.target);
+        expandItem(item, view);
       }
     });
+    view.appendChild(p);
     projectView.appendChild(view);
   }
 

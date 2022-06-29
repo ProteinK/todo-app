@@ -15,12 +15,22 @@ const ProjectController = (function () {
     let priority = document.querySelector('#priority').value;
 
     let item = TodoItem(title, desc, date, priority);
+    //TODO don't always add to default
     let project = ProjectManager.getProject("Default");
     project.addItem(item);
     ProjectView.display(project);
   }
 
-  return Object.assign({}, { showItemForm, addItem });
+  function removeItem(itemView) {
+    let projectName = itemView.getAttribute('data-project');
+    let index = itemView.getAttribute('data-index');
+    let project = ProjectManager.getProject(projectName);
+
+    project.removeItem(index);
+    ProjectView.display(project);
+  }
+
+  return Object.assign({}, { showItemForm, addItem, removeItem });
 })();
 
 export { ProjectController };
