@@ -33,4 +33,35 @@ const ProjectController = (function () {
   return Object.assign({}, { showItemForm, addItem, removeItem });
 })();
 
-export { ProjectController };
+const ItemController = (function () {
+
+  function editItem(itemView) {
+    let projectName = itemView.getAttribute('data-project');
+    let index = itemView.getAttribute('data-index');
+    let project = ProjectManager.getProject(projectName);
+
+    let item = project.getItem(index);
+
+    let inputs = itemView.querySelectorAll('input');
+    let btn = itemView.querySelector('button#edit');
+
+    // first click
+    if (inputs[0].readOnly) {
+      for (const input of inputs) {
+        input.readOnly = false;
+      }
+      btn.textContent = 'Done';
+    } else {
+      // finished editing
+      for (const input of inputs) {
+        input.readOnly = true;
+        item[input.name] = input.value;
+      }
+      btn.textContent = 'Edit';
+    }
+  }
+
+  return Object.assign({}, { editItem });
+})();
+
+export { ProjectController, ItemController };

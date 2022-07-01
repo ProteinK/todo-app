@@ -1,4 +1,4 @@
-import { ProjectController } from "./controllers";
+import { ProjectController, ItemController } from "./controllers";
 
 const ProjectView = (function () {
   function display(project) {
@@ -34,29 +34,42 @@ const ProjectView = (function () {
 
 const ItemView = (function () {
   function expandItem(item, element) {
+    const main = document.createElement('div');
+    main.classList.add('expanded-item');
+
     const div = document.createElement('div');
-    div.classList.add('expanded-item');
 
-    const ul = document.createElement('ul');
+    let desc = document.createElement('input');
+    desc.value = item.desc;
+    desc.readOnly = true;
+    desc.name = 'desc';
+    let date = document.createElement('input');
+    date.setAttribute('type', 'date');
+    date.value = item.date;
+    date.readOnly = true;
+    date.name = 'date';
 
-    let desc = document.createElement('li');
-    desc.textContent = item.desc;
-    let date = document.createElement('li');
-    date.textContent = item.date;
+    div.appendChild(desc);
+    div.appendChild(date);
 
-    ul.appendChild(desc);
-    ul.appendChild(date);
+    main.appendChild(div);
 
-    div.appendChild(ul);
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.id = 'edit';
+    editBtn.addEventListener('click', () => {
+      ItemController.editItem(element);
+    });
+    main.appendChild(editBtn);
 
     const removeBtn = document.createElement('button');
     removeBtn.textContent = 'Remove';
     removeBtn.addEventListener('click', () => {
       ProjectController.removeItem(element);
     });
-    div.appendChild(removeBtn);
+    main.appendChild(removeBtn);
 
-    element.appendChild(div);
+    element.appendChild(main);
   }
 
   function collapseItem(element) {
