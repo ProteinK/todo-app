@@ -16,7 +16,11 @@ const ProjectManager = (function () {
     return projects.find(p => p.name === name);
   }
 
-  return Object.assign({}, { initialize, addProject, getProject });
+  function getProjects() {
+    return projects;
+  }
+
+  return Object.assign({}, { initialize, addProject, getProject, getProjects });
 })();
 
 export default ProjectManager;

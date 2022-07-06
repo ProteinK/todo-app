@@ -13,6 +13,10 @@ ul {
   display: none;
 }
 
+#project-form.hidden {
+  display: none;
+}
+
 #item-form {
   display: flex;
   flex-direction: column;

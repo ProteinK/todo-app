@@ -1,11 +1,36 @@
 import TodoItem from "./TodoItem";
+import Project from "./Project";
 import ProjectManager from "./ProjectManager";
 import { ProjectView } from "./views";
 
 const ProjectController = (function () {
 
+  function showProjectForm() {
+    document.querySelector('#project-form').classList.toggle('hidden');
+  }
+
   function showItemForm() {
+    let projects = ProjectManager.getProjects();
+    const select = document.querySelector('#picked-project');
+    select.innerHTML = '';
+
+    for (const project of projects) {
+      let option = document.createElement('option');
+      option.value = project.name;
+      option.textContent = project.name;
+      if (option.value === 'Default') {
+        option.selected = true;
+      }
+      select.appendChild(option);
+    }
+
     document.querySelector('#item-form').classList.toggle('hidden');
+  }
+
+  function addProject() {
+    let projectName = document.querySelector('#project-name').value;
+    let project = Project(projectName);
+    ProjectManager.addProject(project);
   }
 
   function addItem() {
@@ -15,8 +40,9 @@ const ProjectController = (function () {
     let priority = document.querySelector('#priority').value;
 
     let item = TodoItem(title, desc, date, priority);
-    //TODO don't always add to default
-    let project = ProjectManager.getProject("Default");
+
+    let projectName = document.querySelector('#picked-project').value;
+    let project = ProjectManager.getProject(projectName);
     project.addItem(item);
     ProjectView.display(project);
   }
@@ -30,7 +56,7 @@ const ProjectController = (function () {
     ProjectView.display(project);
   }
 
-  return Object.assign({}, { showItemForm, addItem, removeItem });
+  return Object.assign({}, { showItemForm, addItem, removeItem, showProjectForm, addProject });
 })();
 
 const ItemController = (function () {
