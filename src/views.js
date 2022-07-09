@@ -90,6 +90,15 @@ const ItemView = (function () {
     let p = document.createElement('p');
     p.textContent = item.title;
     view.classList.add('todo-item');
+
+    if (item.priority == 1) {
+      view.classList.add('item-priority-1');
+    } else if (item.priority == 2) {
+      view.classList.add('item-priority-2');
+    } else {
+      view.classList.add('item-priority-3');
+    }
+
     p.addEventListener('click', e => {
       if (view.querySelector('.expanded-item')) {
         collapseItem(view);
