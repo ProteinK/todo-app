@@ -1,7 +1,7 @@
 import { ProjectController, ItemController } from "./controllers";
 
 const ProjectView = (function () {
-  function display(project) {
+  function display(project, collapsed = true) {
     let main = document.querySelector('#projects');
 
     // clear out the project view first
@@ -13,11 +13,20 @@ const ProjectView = (function () {
     let projectView = document.createElement('div');
     projectView.classList.add('project');
     projectView.setAttribute('data-project', project.name);
+    let title = document.createElement('h1');
+    title.textContent = project.name;
+    title.addEventListener('click', () => {
+      display(project, !collapsed);
+    });
 
-    let items = project.getItems();
-    for (let i = 0; i < items.length; i++) {
-      let item = project.getItem(i);
-      ItemView.display(item, i, project.name, projectView);
+    projectView.appendChild(title);
+
+    if (!collapsed) {
+      let items = project.getItems();
+      for (let i = 0; i < items.length; i++) {
+        let item = project.getItem(i);
+        ItemView.display(item, i, project.name, projectView);
+      }
     }
 
     main.appendChild(projectView);

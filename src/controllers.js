@@ -44,7 +44,12 @@ const ProjectController = (function () {
     let projectName = document.querySelector('#picked-project').value;
     let project = ProjectManager.getProject(projectName);
     project.addItem(item);
-    ProjectView.display(project);
+    if (projectName === 'Default') {
+      ProjectView.display(project, false);
+    }
+    else {
+      ProjectView.display(project);
+    }
   }
 
   function removeItem(itemView) {
