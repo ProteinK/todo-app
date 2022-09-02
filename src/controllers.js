@@ -10,21 +10,9 @@ const ProjectController = (function () {
   }
 
   function showItemForm() {
-    let projects = ProjectManager.getProjects();
-    const select = document.querySelector('#picked-project');
-    select.innerHTML = '';
-
-    for (const project of projects) {
-      let option = document.createElement('option');
-      option.value = project.name;
-      option.textContent = project.name;
-      if (option.value === 'Default') {
-        option.selected = true;
-      }
-      select.appendChild(option);
-    }
-
-    document.querySelector('#item-form').classList.toggle('hidden');
+    const itemForm = document.querySelector('#item-form');
+    itemForm.classList.toggle('hidden');
+    itemForm.setAttribute('data-project', this.parentElement.getAttribute('data-project'));
   }
 
   function addProject() {
@@ -34,14 +22,15 @@ const ProjectController = (function () {
   }
 
   function addItem() {
-    let title = document.querySelector('#title').value;
-    let desc = document.querySelector('#desc').value;
-    let date = document.querySelector('#date').value;
-    let priority = document.querySelector('#priority').value;
+    const itemForm = document.querySelector('#item-form');
+    let title = itemForm.querySelector('#title').value;
+    let desc = itemForm.querySelector('#desc').value;
+    let date = itemForm.querySelector('#date').value;
+    let priority = itemForm.querySelector('#priority').value;
 
     let item = TodoItem(title, desc, date, priority);
 
-    let projectName = document.querySelector('#picked-project').value;
+    let projectName = itemForm.getAttribute('data-project');
     let project = ProjectManager.getProject(projectName);
     project.addItem(item);
     if (projectName === 'Default') {

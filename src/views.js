@@ -29,6 +29,12 @@ const ProjectView = (function () {
       }
     }
 
+    let btn = document.createElement('btn');
+    btn.textContent = 'Add new item';
+    btn.id = 'add-new-item';
+    btn.addEventListener('click', ProjectController.showItemForm);
+    projectView.append(btn);
+
     main.appendChild(projectView);
   }
 
@@ -37,9 +43,6 @@ const ProjectView = (function () {
 
   const addProjectBtn = document.querySelector('#add-project');
   addProjectBtn.addEventListener('click', ProjectController.addProject);
-
-  const btn = document.querySelector('#add-new-item');
-  btn.addEventListener('click', ProjectController.showItemForm);
 
   const newProjectBtn = document.querySelector('#add-new-project');
   newProjectBtn.addEventListener('click', ProjectController.showProjectForm);
