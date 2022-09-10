@@ -56,7 +56,6 @@ input {
   background: green;
 }
 
-
 button {
   border-radius: 10px;
   font-size: 1.4rem;
@@ -66,7 +65,8 @@ button {
 }
 
 button#add-new-item {
-  width: 250px;
+  width: 150px;
+  font-size: 1.1rem;
 }
 
 .todo-item button {

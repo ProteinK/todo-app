@@ -1,7 +1,7 @@
 import TodoItem from "./TodoItem";
 import Project from "./Project";
 import ProjectManager from "./ProjectManager";
-import { ProjectView } from "./views";
+import { MainView } from "./views";
 
 const ProjectController = (function () {
 
@@ -19,6 +19,7 @@ const ProjectController = (function () {
     let projectName = document.querySelector('#project-name').value;
     let project = Project(projectName);
     ProjectManager.addProject(project);
+    MainView.display();
   }
 
   function addItem() {
@@ -33,12 +34,7 @@ const ProjectController = (function () {
     let projectName = itemForm.getAttribute('data-project');
     let project = ProjectManager.getProject(projectName);
     project.addItem(item);
-    if (projectName === 'Default') {
-      ProjectView.display(project, false);
-    }
-    else {
-      ProjectView.display(project);
-    }
+    MainView.display();
   }
 
   function removeItem(itemView) {
@@ -47,7 +43,7 @@ const ProjectController = (function () {
     let project = ProjectManager.getProject(projectName);
 
     project.removeItem(index);
-    ProjectView.display(project);
+    MainView.display();
   }
 
   return Object.assign({}, { showItemForm, addItem, removeItem, showProjectForm, addProject });

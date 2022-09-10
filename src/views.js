@@ -1,20 +1,45 @@
 import { ProjectController, ItemController } from "./controllers";
+import ProjectManager from './ProjectManager';
+
+const MainView = (function () {
+  function display() {
+    ProjectManager.getProjects().forEach(project => {
+      if (project.name === 'Default') {
+        ProjectView.display(project, false);
+      } else {
+        ProjectView.display(project);
+      }
+    });
+  }
+
+  const addProjectBtn = document.querySelector('#add-project');
+  addProjectBtn.addEventListener('click', ProjectController.addProject);
+
+  const newProjectBtn = document.querySelector('#add-new-project');
+  newProjectBtn.addEventListener('click', ProjectController.showProjectForm);
+
+  return Object.assign({}, { display });
+})();
 
 const ProjectView = (function () {
   function display(project, collapsed = true) {
     let main = document.querySelector('#projects');
 
-    // clear out the project view first
+    // check for existing project first
+    let projectView;
     let temp = main.querySelector(`.project[data-project=${project.name}]`);
     if (temp) {
-      main.removeChild(temp);
+      projectView = temp;
+      projectView.innerHTML = '';
+    } else {
+      projectView = document.createElement('div');
+      projectView.classList.add('project');
+      projectView.setAttribute('data-project', project.name);
     }
 
-    let projectView = document.createElement('div');
-    projectView.classList.add('project');
-    projectView.setAttribute('data-project', project.name);
     let title = document.createElement('h1');
     title.textContent = project.name;
+
     title.addEventListener('click', () => {
       display(project, !collapsed);
     });
@@ -29,23 +54,19 @@ const ProjectView = (function () {
       }
     }
 
-    let btn = document.createElement('btn');
+    let btn = document.createElement('button');
     btn.textContent = 'Add new item';
     btn.id = 'add-new-item';
     btn.addEventListener('click', ProjectController.showItemForm);
     projectView.append(btn);
 
-    main.appendChild(projectView);
+    if (!temp) {
+      main.appendChild(projectView);
+    }
   }
 
   const addItemBtn = document.querySelector('#add-item');
   addItemBtn.addEventListener('click', ProjectController.addItem);
-
-  const addProjectBtn = document.querySelector('#add-project');
-  addProjectBtn.addEventListener('click', ProjectController.addProject);
-
-  const newProjectBtn = document.querySelector('#add-new-project');
-  newProjectBtn.addEventListener('click', ProjectController.showProjectForm);
 
   return Object.assign({}, { display });
 })();
@@ -125,4 +146,4 @@ const ItemView = (function () {
   return Object.assign({}, { display });
 })();
 
-export { ProjectView, ItemView };
+export { ProjectView, ItemView, MainView };
