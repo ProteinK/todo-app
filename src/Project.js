@@ -1,5 +1,6 @@
 export default function Project(name) {
   let items = [];
+  let collapsed = true;
 
   const proto = {
     addItem(item) {
@@ -19,5 +20,5 @@ export default function Project(name) {
     }
   };
 
-  return Object.assign(Object.create(proto), { name });
+  return Object.assign(Object.create(proto), { name, collapsed });
 }

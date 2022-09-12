@@ -4,11 +4,7 @@ import ProjectManager from './ProjectManager';
 const MainView = (function () {
   function display() {
     ProjectManager.getProjects().forEach(project => {
-      if (project.name === 'Default') {
-        ProjectView.display(project, false);
-      } else {
-        ProjectView.display(project);
-      }
+      ProjectView.display(project, project.collapsed);
     });
   }
 
@@ -52,7 +48,11 @@ const ProjectView = (function () {
         let item = project.getItem(i);
         ItemView.display(item, i, project.name, projectView);
       }
+      projectView.classList.add('expanded');
+    } else {
+      projectView.classList.remove('expanded');
     }
+    project.collapsed = collapsed;
 
     let btn = document.createElement('button');
     btn.textContent = 'Add new item';

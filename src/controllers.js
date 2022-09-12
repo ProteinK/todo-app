@@ -34,6 +34,8 @@ const ProjectController = (function () {
     let projectName = itemForm.getAttribute('data-project');
     let project = ProjectManager.getProject(projectName);
     project.addItem(item);
+
+    itemForm.classList.toggle('hidden');
     MainView.display();
   }
 

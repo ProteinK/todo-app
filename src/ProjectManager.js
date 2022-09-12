@@ -5,6 +5,7 @@ const ProjectManager = (function () {
 
   function initialize() {
     let project = Project("Default");
+    project.collapsed = false;
     addProject(project);
   }
 
