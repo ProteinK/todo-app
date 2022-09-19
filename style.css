@@ -1,3 +1,7 @@
+body {
+  background-color: darkslategray;
+}
+
 p, h1, h2 {
   margin: 0;
   padding: 0;
@@ -21,14 +25,23 @@ ul {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   row-gap: 10px;
   font-size: 1.3rem;
+  color: white;
+}
+
+#project-form {
+  color: white;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
 }
 
 .form-item {
   display: flex;
   gap: 5px;
+  justify-content: space-between;
 }
 
 input:invalid {
@@ -42,6 +55,16 @@ input {
 .todo-item {
   font-size: 1.3rem;
   padding: 10px;
+  border-radius: 5px;
+}
+
+.todo-item img {
+  width: 1.3rem;
+}
+
+.todo-item div:first-of-type {
+  display: flex;
+  column-gap: 5px;
 }
 
 .todo-item.item-priority-1 {
@@ -77,10 +100,26 @@ button#add-new-item {
   display: flex;
   justify-content: center;
   align-items: center;
+  column-gap: 10px;
 }
 
 .project {
-  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  background-color: rgb(128, 128, 128);
+  color: white;
+  border-radius: 10px;
+  padding: 5px 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.project.expanded h1:first-child {
+  font-style: italic;
+}
+
+.project h1 {
+  text-align: center;
 }
 
 #container {
