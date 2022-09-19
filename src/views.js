@@ -8,6 +8,12 @@ const MainView = (function () {
     });
   }
 
+  const itemForm = document.querySelector('#item-form');
+  itemForm.addEventListener('keyup', ProjectController.submitItemForm);
+
+  const projectForm = document.querySelector('#project-form');
+  projectForm.addEventListener('keyup', ProjectController.submitProjectForm);
+
   const addProjectBtn = document.querySelector('#add-project');
   addProjectBtn.addEventListener('click', ProjectController.addProject);
 
@@ -23,7 +29,7 @@ const ProjectView = (function () {
 
     // check for existing project first
     let projectView;
-    let temp = main.querySelector(`.project[data-project=${project.name}]`);
+    let temp = main.querySelector(`.project[data-project="${project.name}"]`);
     if (temp) {
       projectView = temp;
       projectView.innerHTML = '';
@@ -120,8 +126,15 @@ const ItemView = (function () {
     let view = document.createElement('div');
     view.setAttribute('data-index', index);
     view.setAttribute('data-project', projectName);
+
+    let div = document.createElement('div');
+
+    let img = document.createElement('img');
+    img.src = './check-solid.svg';
+
     let p = document.createElement('p');
     p.textContent = item.title;
+
     view.classList.add('todo-item');
 
     if (item.priority == 1) {
@@ -132,14 +145,18 @@ const ItemView = (function () {
       view.classList.add('item-priority-3');
     }
 
-    p.addEventListener('click', e => {
+    div.addEventListener('click', e => {
       if (view.querySelector('.expanded-item')) {
         collapseItem(view);
       } else {
         expandItem(item, view);
       }
     });
-    view.appendChild(p);
+
+    div.appendChild(img);
+    div.appendChild(p);
+
+    view.appendChild(div);
     projectView.appendChild(view);
   }
 

@@ -5,20 +5,42 @@ import { MainView } from "./views";
 
 const ProjectController = (function () {
 
+  function submitItemForm(e) {
+    if (e.keyCode === 13) {
+      addItem();
+    }
+  }
+
+  function submitProjectForm(e) {
+    if (e.keyCode === 13) {
+      addProject();
+    }
+  }
+
   function showProjectForm() {
-    document.querySelector('#project-form').classList.toggle('hidden');
+    const projectForm = document.querySelector('#project-form');
+    let isHidden = projectForm.classList.toggle('hidden');
+    if (!isHidden) {
+      projectForm.querySelector('input:first-of-type').focus();
+    }
   }
 
   function showItemForm() {
     const itemForm = document.querySelector('#item-form');
-    itemForm.classList.toggle('hidden');
+    let isHidden = itemForm.classList.toggle('hidden');
     itemForm.setAttribute('data-project', this.parentElement.getAttribute('data-project'));
+    if (!isHidden) {
+      itemForm.querySelector('input:first-of-type').focus();
+    }
   }
 
   function addProject() {
-    let projectName = document.querySelector('#project-name').value;
+    const projectForm = document.querySelector('#project-form');
+    let projectName = projectForm.querySelector('#project-name').value;
     let project = Project(projectName);
     ProjectManager.addProject(project);
+
+    projectForm.classList.toggle('hidden');
     MainView.display();
   }
 
@@ -48,7 +70,10 @@ const ProjectController = (function () {
     MainView.display();
   }
 
-  return Object.assign({}, { showItemForm, addItem, removeItem, showProjectForm, addProject });
+  return Object.assign({}, {
+    showItemForm, addItem, removeItem,
+    showProjectForm, addProject, submitItemForm, submitProjectForm
+  });
 })();
 
 const ItemController = (function () {
