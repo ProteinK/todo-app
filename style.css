@@ -1,5 +1,6 @@
 body {
   background-color: darkslategray;
+  margin: 0;
 }
 
 p, h1, h2 {
@@ -99,7 +100,7 @@ button#add-new-item {
 #projects {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   column-gap: 10px;
 }
 
@@ -132,4 +133,13 @@ button#add-new-item {
 .expanded-item>div {
   display: flex;
   flex-direction: column;
+}
+
+h1.title {
+  font-size: 4rem;
+  color: white;
+}
+
+.project-title {
+  cursor: pointer;
 }
