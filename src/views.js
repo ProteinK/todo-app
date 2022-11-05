@@ -51,6 +51,7 @@ const ProjectView = (function () {
 
     if (!collapsed) {
       let items = project.getItems();
+      console.log(project)
       for (let i = 0; i < items.length; i++) {
         let item = project.getItem(i);
         ItemView.display(item, i, project.name, projectView);

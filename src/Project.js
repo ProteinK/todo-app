@@ -20,5 +20,5 @@ export default function Project(name) {
     }
   };
 
-  return Object.assign(Object.create(proto), { name, collapsed });
+  return Object.assign(Object.create(proto), { name, collapsed, items });
 }

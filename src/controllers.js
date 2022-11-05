@@ -38,6 +38,7 @@ const ProjectController = (function () {
     const projectForm = document.querySelector('#project-form');
     let projectName = projectForm.querySelector('#project-name').value;
     let project = Project(projectName);
+    localStorage.setItem(project.name, JSON.stringify(project));
     ProjectManager.addProject(project);
 
     projectForm.classList.toggle('hidden');
@@ -56,6 +57,7 @@ const ProjectController = (function () {
     let projectName = itemForm.getAttribute('data-project');
     let project = ProjectManager.getProject(projectName);
     project.addItem(item);
+    localStorage.setItem(projectName, JSON.stringify(project));
 
     itemForm.classList.toggle('hidden');
     MainView.display();
@@ -67,6 +69,7 @@ const ProjectController = (function () {
     let project = ProjectManager.getProject(projectName);
 
     project.removeItem(index);
+    localStorage.setItem(project.name, JSON.stringify(project));
     MainView.display();
   }
 
