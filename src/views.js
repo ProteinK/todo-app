@@ -41,6 +41,7 @@ const ProjectView = (function () {
 
     let title = document.createElement('h1');
     title.textContent = project.name;
+    title.classList.add('project-title');
 
     title.addEventListener('click', () => {
       display(project, !collapsed);
@@ -54,17 +55,17 @@ const ProjectView = (function () {
         let item = project.getItem(i);
         ItemView.display(item, i, project.name, projectView);
       }
+
       projectView.classList.add('expanded');
+      let btn = document.createElement('button');
+      btn.textContent = 'Add new item';
+      btn.id = 'add-new-item';
+      btn.addEventListener('click', ProjectController.showItemForm);
+      projectView.append(btn);
     } else {
       projectView.classList.remove('expanded');
     }
     project.collapsed = collapsed;
-
-    let btn = document.createElement('button');
-    btn.textContent = 'Add new item';
-    btn.id = 'add-new-item';
-    btn.addEventListener('click', ProjectController.showItemForm);
-    projectView.append(btn);
 
     if (!temp) {
       main.appendChild(projectView);
