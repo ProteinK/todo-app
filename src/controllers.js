@@ -104,6 +104,8 @@ const ItemController = (function () {
         item[input.name] = input.value;
       }
       btn.textContent = 'Edit';
+
+      localStorage.setItem(project.name, JSON.stringify(project));
     }
   }
 
