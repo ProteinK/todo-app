@@ -45,6 +45,14 @@ const ProjectController = (function () {
     MainView.display();
   }
 
+  function removeProject(project, projectView) {
+    localStorage.removeItem(project.name);
+    ProjectManager.removeProject(project.name);
+    let main = document.querySelector('#projects');
+    main.removeChild(projectView);
+    MainView.display();
+  }
+
   function addItem() {
     const itemForm = document.querySelector('#item-form');
     let title = itemForm.querySelector('#title').value;
@@ -75,7 +83,8 @@ const ProjectController = (function () {
 
   return Object.assign({}, {
     showItemForm, addItem, removeItem,
-    showProjectForm, addProject, submitItemForm, submitProjectForm
+    showProjectForm, addProject, submitItemForm, submitProjectForm,
+    removeProject
   });
 })();
 

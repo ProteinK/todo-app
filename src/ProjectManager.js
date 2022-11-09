@@ -47,7 +47,12 @@ const ProjectManager = (function () {
     return projects;
   }
 
-  return Object.assign({}, { initialize, addProject, getProject, getProjects });
+  function removeProject(name) {
+    let index = projects.findIndex(p => p.name === name);
+    projects.splice(index, 1);
+  }
+
+  return Object.assign({}, { initialize, addProject, getProject, getProjects, removeProject });
 })();
 
 export default ProjectManager;

@@ -1,4 +1,5 @@
 import { ProjectController, ItemController } from "./controllers";
+import Project from "./Project";
 import ProjectManager from './ProjectManager';
 
 const MainView = (function () {
@@ -39,6 +40,9 @@ const ProjectView = (function () {
       projectView.setAttribute('data-project', project.name);
     }
 
+    let headerDiv = document.createElement('div');
+    headerDiv.classList.add('project-header');
+
     let title = document.createElement('h1');
     title.textContent = project.name;
     title.classList.add('project-title');
@@ -46,12 +50,22 @@ const ProjectView = (function () {
     title.addEventListener('click', () => {
       display(project, !collapsed);
     });
+    headerDiv.appendChild(title);
 
-    projectView.appendChild(title);
+    if (project.name !== 'Default') {
+      let deleteButton = document.createElement('button');
+      deleteButton.textContent = 'X';
+      deleteButton.classList.add('project-delete');
+      deleteButton.addEventListener('click', () => {
+        ProjectController.removeProject(project, projectView);
+      });
+      headerDiv.appendChild(deleteButton);
+    }
+
+    projectView.appendChild(headerDiv);
 
     if (!collapsed) {
       let items = project.getItems();
-      console.log(project)
       for (let i = 0; i < items.length; i++) {
         let item = project.getItem(i);
         ItemView.display(item, i, project.name, projectView);

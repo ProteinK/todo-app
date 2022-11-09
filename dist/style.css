@@ -91,6 +91,7 @@ button {
 button#add-new-item {
   width: 150px;
   font-size: 1.1rem;
+  align-self: center;
 }
 
 .todo-item button {
@@ -142,4 +143,16 @@ h1.title {
 
 .project-title {
   cursor: pointer;
+}
+
+.project-delete {
+  padding: 5px;
+  color: red;
+  background-color: white;
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-around;
+  column-gap: 5px;
 }
